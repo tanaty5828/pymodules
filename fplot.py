@@ -37,6 +37,8 @@ parser.add_argument("i_files", help="are ploted file.", nargs="*")
 parser.add_argument("-xr", help="x_range ex) -10:10, :100")
 parser.add_argument("-yr", help="y_range ex) -10:10, :100")
 parser.add_argument("-e", help="plot every # ex) 50", default=1)
+parser.add_argument("-xt", help="xtics every # ex) 45")
+parser.add_argument("-yt", help="ytics every # ex) 0.1")
 parser.add_argument("-pn", help="picture name : ex) dihedral1")
 args = parser.parse_args()
 
@@ -88,8 +90,19 @@ except:
     pass
 
 # ticks
-ax.xaxis.set_major_locator(ticker.MultipleLocator(45))
-ax.yaxis.set_major_locator(ticker.MultipleLocator(30))
+try:
+    xtics = args.xt
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(float(xtics)))
+except:
+    pass
+
+try:
+    ytics = args.yt
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(float(ytics)))
+except:
+    pass
+
+
 ax.legend(loc="best")
 fig.tight_layout()
 
