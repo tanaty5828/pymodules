@@ -35,9 +35,10 @@ plt.rcParams['grid.linestyle']='--'
 #
 parser = argparse.ArgumentParser(description="Fast plot like gnuplot!")
 parser.add_argument("i_files", help="are ploted file.", nargs="*")
+parser.add_argument("-u",  help="which column # ex) 1:3", default="1:2")
 parser.add_argument("-xr", help="x_range ex) -10:10, :100")
 parser.add_argument("-yr", help="y_range ex) -10:10, :100")
-parser.add_argument("-e", help="plot every # ex) 50", default=1)
+parser.add_argument("-e",  help="plot every # ex) 50", default=1)
 parser.add_argument("-xt", help="xtics every # ex) 45")
 parser.add_argument("-yt", help="ytics every # ex) 0.1")
 parser.add_argument("-pn", help="picture name : ex) dihedral1")
@@ -66,8 +67,13 @@ fig = plt.figure(figsize=(16,9))
 plt.subplots_adjust(wspace=0.3, hspace=0.3)
 ax = fig.add_subplot(1,1,1)
 
+# column set
+columns = args.u.split(":")
+columns = list(map(int, columns))
+columns = list(map(lambda x: x-1, columns))
+
 for j_filename, j_file in zip(args.i_files,plot_files):
-    ax.plot(j_file[::plot_every, 0], j_file[::plot_every, 1], label=f"{j_filename}")
+    ax.plot(j_file[::plot_every, columns[0]], j_file[::plot_every, columns[1]], label=f"{j_filename}")
 
 # xrange set
 try:
