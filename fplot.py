@@ -70,7 +70,7 @@ ax = fig.add_subplot(1,1,1)
 # column set
 columns = args.u.split(":")
 columns = list(map(int, columns))
-columns = list(map(lambda x: x-1, columns))
+columns = list(map(lambda x: x-1, columns)) # u 1:2 is use 0:1
 
 for j_filename, j_file in zip(args.i_files,plot_files):
     ax.plot(j_file[::plot_every, columns[0]], j_file[::plot_every, columns[1]], label=f"{j_filename}")
