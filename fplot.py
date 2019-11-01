@@ -3,6 +3,7 @@ import matplotlib.ticker as ticker
 import argparse
 import numpy as np
 import os
+from io import StringIO
 
 
 plt.rcParams["font.family"] = "Spica Neue"      #全体のフォントを設定
@@ -48,7 +49,15 @@ plot_files = []
 # check file
 for i_file in args.i_files:
     if os.path.exists(i_file):
-        plot_files.append(np.loadtxt(f"{i_file}"))
+
+        # deal with comment
+        with open (i_file, "r")as f:
+            string = f.read()
+        string = string.replace("@", "#")
+        string = string.replace("!", "#")
+        string = StringIO(string)
+
+        plot_files.append(np.loadtxt(string))
     else:
         print(f"Error : {i_file} can't find.")
         os.sys.exit()
