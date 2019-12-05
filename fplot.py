@@ -63,7 +63,7 @@ for i_file in args.i_files:
         print(f"Error : {i_file} can't find.")
         os.sys.exit()
 # plot_setting
-fig = plt.figure(figsize=(16,9))
+fig = plt.figure(figsize=(14, 10))
 plt.subplots_adjust(wspace=0.3, hspace=0.3)
 ax = fig.add_subplot(1,1,1)
 
@@ -118,7 +118,7 @@ except:
     pass
 
 
-ax.legend(loc="best")
+ax.legend(loc = "best")
 fig.tight_layout()
 
 # save picture
