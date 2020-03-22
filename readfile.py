@@ -6,3 +6,10 @@ def nstrip(filename_):
         line = f.readlines()
     result = list(map(nremove, line))
     return result
+
+
+def readfile(filename_):
+    with open(filename_) as f:
+        line = f.readlines()
+    result = list(map(nremove, line))
+    return result
