@@ -1,5 +1,4 @@
 import MDAnalysis as mda
-from tqdm import tqdm
 import argparse
 import warnings
 warnings.filterwarnings('ignore')
