@@ -2,6 +2,7 @@ def plot_init():
     import matplotlib.pyplot as plt
     global plt
     plt.rcParams["font.family"] = "Times New Roman"      # 全体のフォントを設定
+    # plt.rcParams["font.family"] = "Times"      # 全体のフォントを設定
     plt.rcParams["xtick.direction"] = "in"               # x軸の目盛線を内向きへ
     plt.rcParams["ytick.direction"] = "in"               # y軸の目盛線を内向きへ
     plt.rcParams["xtick.minor.visible"] = True           # x軸補助目盛りの追加

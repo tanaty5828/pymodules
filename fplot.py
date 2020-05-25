@@ -58,7 +58,12 @@ for i_file in args.i_files:
         string = string.replace("!", "#")
         string = StringIO(string)
 
-        plot_files.append(np.loadtxt(string))
+        if i_file[-3:] == 'csv':  # deal with to csv file
+            plot_files.append(np.loadtxt(string, delimiter=','))
+
+        else:
+            plot_files.append(np.loadtxt(string))
+
     else:
         print(f"Error : {i_file} can't find.")
         os.sys.exit()
