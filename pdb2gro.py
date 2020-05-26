@@ -1,8 +1,25 @@
+"""pdb2gro
+
+    Convert from pdb structure file to gro(gromacs) structure file.
+
+Todo:
+    * Warn if the input pdb file don't have cell size.
+
+"""
+
 import MDAnalysis as mda
 import argparse
 
 
 def Pdb2gmx(file_pdb, o_name, file_psf):
+    """Pdb2gmx.
+
+    Args:
+        file_pdb: Input pdb filename.
+        o_name: Output gro filename. The 'gro' file extension is needed.
+        file_psf: Additional psf file path.
+    """
+
     if file_psf is None:
         u = mda.Universe(file_pdb)
         u.atoms.write(f'{o_name}', reindex=False)
