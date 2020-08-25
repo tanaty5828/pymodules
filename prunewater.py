@@ -28,7 +28,7 @@ if __name__ == '__main__':
         "--trajectory",
         help="trajectory like .dcd .xtc",
         required=True,
-        n_args='*')
+        nargs='*')
     args = parser.parse_args()
 
     PruneWater(args.psf, args.trajectory)

@@ -41,6 +41,8 @@ parser.add_argument("-yr", help="y_range ex) -10:10, :100")
 parser.add_argument("-e",  help="plot every # ex) 50", default=1)
 parser.add_argument("-xt", help="xtics every # ex) 45")
 parser.add_argument("-yt", help="ytics every # ex) 0.1")
+parser.add_argument("-m",  help='^ is setted as marker', action='store_true')
+parser.add_argument("-ylog",  help='set log scale Y', action='store_true')
 parser.add_argument("-pn", help="picture name : ex) dihedral1")
 args = parser.parse_args()
 
@@ -78,8 +80,15 @@ columns = list(map(int, columns))
 columns = list(map(lambda x: x-1, columns))  # u 1:2 is use 0:1
 
 for j_filename, j_file in zip(args.i_files, plot_files):
-    ax.plot(j_file[::plot_every, columns[0]],
-            j_file[::plot_every, columns[1]], label=f"{j_filename}")
+    if args.m:
+        ax.plot(j_file[::plot_every, columns[0]],
+                j_file[::plot_every, columns[1]],
+                label=f"{j_filename}",
+                marker='^')
+    else:
+        ax.plot(j_file[::plot_every, columns[0]],
+                j_file[::plot_every, columns[1]],
+                label=f"{j_filename}")
 
 # xrange set
 try:
@@ -126,6 +135,9 @@ except:
 
 ax.legend(loc="best")
 fig.tight_layout()
+
+if args.ylog:
+    plt.yscale('log')
 
 # save picture
 if args.pn == None:
