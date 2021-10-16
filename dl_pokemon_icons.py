@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+from logging import getLogger
+
 
 def get_pokemon_names():
     pokemon_en_name_json_path = 'https://raw.githubusercontent.com/sindresorhus/pokemon/main/data/en.json'
@@ -25,6 +27,9 @@ def download_file(url, pokemon_id, file_name):
     if response.status_code is 200:
         with open(dst_path, 'wb') as f:
             f.write(response.content)
+    else:
+        logger.warning(f'{dst_path} is not eble to download')
+        return
 
 def create_dummy_header(pokemon_id):
     return {
@@ -33,6 +38,8 @@ def create_dummy_header(pokemon_id):
         'Cookie': '_ga=GA1.2.1271940294.1634311876; _gid=GA1.2.1494761810.1634311876; _gat_gtag_UA_67400407_1=1; _gat_gtag_UA_67400407_4=1; __gads=ID=223f8746377373aa-220a532b9ecc00a8:T=1634311874:RT=1634311874:S=ALNI_MbGyRI0uDSbCxTsClu_HhJunoomKQ'
     }
 
+
+logger = getLogger(__name__)
 text = get_pokemon_names()
 pokemon_names_dic = text_to_dic(text)
 
@@ -40,8 +47,8 @@ for pokemon_id, pokemon_name in pokemon_names_dic.items():
     url = f'http://hikochans.com/material/icon/{pokemon_id}.gif'
     dst_path = f'./pokemons/{pokemon_name}.gif'
     if os.path.exists(dst_path):
-        print(f'{dst_path} is already exists.')
+        logger.warning(f'{dst_path} is already exists.')
         continue
     else:
-        print(f'Downloading {pokemon_name}')
+        logger.info(f'Downloading {pokemon_name}')
         download_file(url, pokemon_id, dst_path)
